@@ -1,18 +1,4 @@
-sSlepa
-sslepa
-Do Not Disturb
 
-sSlepa — 10/24/2022 3:37 PM
-#include <iostream>
-
-using namespace std;
-
-const int MOD = 773;
-Expand
-message.txt
-3 KB
-https://kilonova.ro/problems/280
-sSlepa — 10/31/2023 2:00 PM
 // https://www.infoarena.ro/problema/2sat
 #include<bits/stdc++.h>
 using namespace std;
