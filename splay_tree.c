@@ -10,43 +10,50 @@ typedef struct tree {
     struct node *root;
 } tree;
 
-node* create_node(int key) {
+node* create_node(int key){
     node* new_node = (node*)malloc(sizeof(node));
     new_node->key = key;
     new_node->left = new_node->right = new_node->parent = NULL;
     return new_node;
 }
 
-void right_rotate(tree* t, node* x) {
+void right_rotate(tree* t, node* x){
+
     node* y = x->left;
     x->left = y->right;
-    if (y->right != NULL)
+
+    if(y->right != NULL)
         y->right->parent = x;
+
     y->parent = x->parent;
-    if (x->parent == NULL)
+
+    if(x->parent == NULL)
         t->root = y;
-    else if (x == x->parent->right)
+
+    else if(x == x->parent->right)
         x->parent->right = y;
     else
         x->parent->left = y;
+
     y->right = x;
     x->parent = y;
 }
 
-void left_rotate(tree* t, node* x) {
+void left_rotate(tree* t, node* x){
+
     node* y = x->right;
     x->right = y->left;
-    
+
     if (y->left != NULL)
         y->left->parent = x;
-    
+
     y->parent = x->parent;
-    
+
     if (x->parent == NULL)
         t->root = y;
-    
+
     else if (x == x->parent->left)
-        
+
         x->parent->left = y;
     else
         x->parent->right = y;
@@ -54,10 +61,10 @@ void left_rotate(tree* t, node* x) {
     x->parent = y;
 }
 
-void splay(tree* t, node* x) {
-    while(x->parent != NULL) {
+void splay(tree* t, node* x){
+    while(x->parent != NULL){
         if(x->parent->parent == NULL) {
-            if (x->parent->left == x)
+            if(x->parent->left == x)
                 right_rotate(t, x->parent);
             else
                 left_rotate(t, x->parent);
@@ -97,10 +104,10 @@ void insert(tree* t, int key) {
 
     new_node->parent = y;
 
-    if (y == NULL){
+    if(y == NULL){
         t->root = new_node;
     }
-    else if(new_node->key < y->key) {
+    else if(new_node->key < y->key){
         y->left = new_node;
     }
     else{
@@ -135,22 +142,51 @@ void preorder(tree a) {
     preorder_rec(a.root);
 }
 
-int main(){
-    tree a;
-    a.root = NULL;
-    node *n;
-    int i = 0,x;
-    while(i < 5){
-        scanf("%d", &x);
-        i++;
-        insert(&a, x);
-    }
-    n = search(&a, 1);
-    printf("%s\n", n == a.root ? "True" : "False");
-    preorder(a);
-    printf("\n");
-    n = search(&a, 3);
-    printf("%s\n", n == a.root ? "True" : "False");
-    preorder(a);
 
+void replace(tree* t, node* u, node* v) {
+    if (u->parent == NULL) {
+        t->root = v;
+    }
+    else if (u == u->parent->left) {
+        u->parent->left = v;
+    }
+    else {
+        u->parent->right = v;
+    }
+    if (v != NULL) {
+        v->parent = u->parent;
+    }
+}
+
+node* subtree_maximum(node* u) {
+    while (u->right != NULL) {
+        u = u->right;
+    }
+    return u;
+}
+
+void delete(tree* a, int key){
+    node* n = search(a, key);
+    if (n == NULL) return;
+
+    splay(a, n);
+
+    if (n->left != NULL) {
+        node* predecessor = subtree_maximum(n->left);
+        n->key = predecessor->key;
+        if (predecessor->left) {
+            replace(a, predecessor, predecessor->left);
+        } else {
+            replace(a, predecessor, NULL);
+        }
+        free(predecessor);
+    }
+    else if (n->right != NULL) {
+        replace(a, n, n->right);
+        free(n);
+    }
+    else {
+        replace(a, n, NULL);
+        free(n);
+    }
 }
