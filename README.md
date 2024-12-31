@@ -56,7 +56,3 @@ g++ -std=c++17 -o output filename.cpp
 ## Contribution
 
 Contributions are welcome! If you have improvements, new algorithms, or additional problem solutions, feel free to create a pull request.
-
-## License
-
-This repository is open-sourced under the MIT License. See the LICENSE file for more details.
