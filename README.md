@@ -10,7 +10,7 @@ This repository contains a collection of algorithms and data structures related 
    - Implementation of the 2-Satisfiability problem using implication graphs.
 
 2. **Shortest Paths and Related Algorithms**
-   - **Dijkstra's Algorithm (`astar.cpp`)**: Heuristic-based shortest path algorithm.
+   - **Dijkstra's Algorithm(Astar) (`astar.cpp`)**: Heuristic-based shortest path algorithm.
    - **Bellman-Ford Algorithm (`bellman.cpp`)**: Handles graphs with negative weights.
    - **Johnson's Algorithm (`johnson.cpp`)**: Solves all-pairs shortest paths efficiently.
    - **Yen's Algorithm (`Yenk.cpp`)**: Finds K shortest paths in a graph.
